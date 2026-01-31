@@ -11,8 +11,8 @@ The Project Lead should fork this repository and share the forked repository lin
 
 **Phase 2 Submission (Due 10am eastern Sun Feb 1):**
 
-* [ ] **Final Code:** Notebooks and scripts for the Milestone 3 implementation.
-* [ ] **Test Suite:** `tests.py` demonstrating >60% coverage.
+* [ ] **Final Code:** Notebooks and scripts for the Milestone 3 implementation. Add these files to a folder in this directory.  Include a README.md to guide the judges if you have multiple files.
+* [ ] **Test Suite:** `tests.py` or other documentation or scripts used for verifying your work. 
 * [ ] **AI Report:** `AI_REPORT.md` (See [AI_REPORT-template.md](AI_REPORT-template.md)).
 * [ ] **Presentation:** Slides (Live) or MP4 (Remote).
 
