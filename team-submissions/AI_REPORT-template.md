@@ -14,6 +14,6 @@
 * *Win:* One instance where AI saved you hours.
 * *Learn:* One instance where you altered your prompting strategy (provided context, created a skills.md file, etc) to get better results from your interaction with the AI agent.
 * *Fail:* One instance where AI failed/hallucinated, and how you fixed it.
-* *Context Dump:* Share any prompts, `skills.md` files, etc. that demonstrate thoughtful prompting.
+* *Context Dump:* Share any prompts, `skills.md` files, MCP etc. that demonstrate thoughtful prompting.
 
 
