@@ -29,6 +29,14 @@ To validate AI-generated code and catch hallucinations or logical mistakes, we r
   - Circuit construction
   - Hybrid quantum–classical execution flow
   - Energy computation and result interpretation
+- In addition, we wrote deterministic **pytest unit tests** to catch AI hallucinations and logic errors early, including:
+  - Bitstring ↔ spin representation **roundtrip** conversion tests
+  - **Known-energy** checks and invariants (e.g., global spin flip and sequence reversal invariance)
+  - A memetic tabu search sanity check ensuring **local search never worsens energy**
+  - CUDA-Q integration tests that **mock `cudaq.sample`** to verify:
+    - The correct quantum kernel is invoked
+    - Candidate bitstrings are parsed correctly into spin sequences
+    - Top-count candidates are selected as expected
 
 If the control cell failed or produced incorrect results:
 1. We revisited the algorithmic notes and physics assumptions.
@@ -42,16 +50,18 @@ This approach ensured that AI assistance accelerated development without becomin
 ## 3. The “Vibe” Log
 
 ### Win — Where AI Saved Us Hours
+
 Translating the workflow from **Qiskit to CUDA-Q**.
 
-We were not fluent enough in CUDA-Q to write a complex hybrid quantum-classical algorithm from scratch within the hackathon timeline. Having AI handle the bulk of the translation allowed us to focus on validating correctness and performance rather than syntax and API minutiae.
+We were not fluent enough in CUDA-Q to write a complex hybrid quantum–classical algorithm from scratch within the hackathon timeline. Having AI handle the bulk of the translation allowed us to focus on validating correctness and performance rather than syntax and API minutiae.
 
 ---
 
 ### Learn — Improving Prompting Strategy
+
 Initially, we tried to *explain* our workflow step-by-step to ChatGPT.
 
-We later switched to **directly sharing the notebook** we had written and asked the model to:
+We later switched to **providing our own project notebook and code excerpts as context during the session**, and asked the model to:
 - Generate documentation
 - Explain the workflow *with respect to the actual code*
 
@@ -60,23 +70,28 @@ This context-first approach dramatically improved accuracy and reduced back-and-
 ---
 
 ### Fail — Where AI Hallucinated (and How We Fixed It)
-We shared an image of **Exercise 4** with CODA, and it hallucinated several **extra quantum gates** that did not compile.
+
+We shared an image of **Exercise 4** with CODA, and it introduced **unsupported or incorrect gate sequences** that were incompatible with the CUDA-Q kernel gate set, causing compilation failures and failing our `n = 7` control energy check.
 
 Fix:
 - We manually inspected the generated circuit.
-- Identified the non-physical / non-compiling gates.
+- Identified the non-physical and non-compiling gates.
 - Removed them and revalidated the circuit against our control tests.
 
-This reinforced the importance of **manual circuit inspection** when using AI for quantum workflows.
+This reinforced the importance of **manual circuit inspection** and **test-driven validation** when using AI for quantum workflows.
 
 ---
 
-### Context Dump — Thoughtful Prompting Example
+### Context Dump — Thoughtful Prompting Examples
 
 One example of a prompt that reflects deliberate, context-aware usage:
 
 > “Can you please tell me which Nvidia GPUs in the image would perform well compared to Nvidia RTX 4080 GPU?”
 
 This prompt tied **visual input**, **hardware constraints**, and **performance comparison** into a single targeted question, enabling faster decision-making during resource selection.
+
+We also used artifact-first prompts to reduce hallucinations when working with code and kernels, for example:
+
+> “Here is our notebook and kernel code. **Do not invent APIs**. Only suggest changes that compile in CUDA-Q. If a gate is unsupported, rewrite it using a valid decomposition (e.g., CNOT–RZ–CNOT).”
 
 ---
