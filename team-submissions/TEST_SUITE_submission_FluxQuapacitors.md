@@ -21,11 +21,11 @@ To achieve this, we separate **shared algorithmic logic**, **automated tests**, 
 
 The core algorithm and hybrid quantum–classical logic shared by both CPU and GPU workflows is implemented in:
 
-- [`Phase_2/common/proposed_work.py`](../Phase_2/common/proposed_work.py)
+- [`notebook/Phase_2/common/proposed_work.py`](../notebook/Phase_2/common/proposed_work.py)
 
 Automated verification tests for this implementation are located in:
 
-- [`Phase_2/common/proposed_work_tests.py`](../Phase_2/common/proposed_work_tests.py)
+- [`notebook/Phase_2/common/proposed_work_tests.py`](../notebook/Phase_2/common/proposed_work_tests.py)
 
 CPU- and GPU-specific execution and benchmarking are performed in Jupyter notebooks under:
 
@@ -98,10 +98,10 @@ Coverage therefore focuses on deterministic and verifiable components of the imp
 The following images provide visual evidence of the coverage results:
 
 - HTML coverage summary showing overall coverage percentage  
-  ![HTML Coverage Report](../Phase_2/common/coverage_report_summary.png)
+  ![HTML Coverage Report](../notebook/Phase_2/common/coverage_report_summary.png)
 
 - Line-level coverage highlighting covered and uncovered regions  
-  ![Line Coverage View](../Phase_2/common/coverage_report_lines.png)
+  ![Line Coverage View](../notebook/Phase_2/common/coverage_report_lines.png)
 
 These images are generated directly from `coverage.py` and reflect the automated test results.
 
